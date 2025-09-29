@@ -156,7 +156,7 @@ export default function RegisterPage() {
                     {"Confirm password is required."}
                   </div>
                 )}
-                {form.password !== form.confirmPassword && (
+                {form.confirmPassword !== form.password && (
                   <div className="text-red-500 text-sm mt-2">
                     {"Password and confirm password doesn't match."}
                   </div>
