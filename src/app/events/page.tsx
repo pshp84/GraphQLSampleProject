@@ -35,7 +35,7 @@ type GetEventsData = {
   totalEventsCount: number;
 };
 
-type GetEventsVars = {
+type GetEvents = {
   search?: string;
   limit?: number;
   offset?: number;
@@ -66,14 +66,14 @@ export default function EventsPage() {
   const [commentText, setCommentText] = useState<Record<string, string>>({});
   const [inlineError, setInlineError] = useState<string | null>(null);
 
-  const queryVars = useMemo<GetEventsVars>(
+  const queryVars = useMemo<GetEvents>(
     () => ({ search: search || "", limit, offset }),
     [search, limit, offset]
   );
 
   const { data, loading, error, refetch } = useQuery<
     GetEventsData,
-    GetEventsVars
+    GetEvents
   >(GET_EVENTS, {
     variables: queryVars,
     skip: !token,
@@ -180,6 +180,11 @@ export default function EventsPage() {
     }
   };
 
+  const handleLogout = ()=>{
+    localStorage.clear();
+    router.push("/")
+  }
+
   const events = data?.events ?? [];
 
   const disablePrev = offset === 0;
@@ -217,6 +222,13 @@ export default function EventsPage() {
           >
             + Add New Event
           </button>
+          <button
+          onClick={handleLogout}
+          type="button"
+            className="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer"
+          >
+            Logout
+          </button>
         </div>
       </div>
 
@@ -241,7 +253,7 @@ export default function EventsPage() {
                 <div>
                   <h2 className="text-lg font-semibold">{ev.title}</h2>
                   <p className="text-sm text-gray-500">
-                    {ev.date} created
+                    Event is on {new Date(ev.date).toLocaleDateString()} created
                     by <strong className="text-black">{ev.createdBy.name}</strong>
                   </p>
                 </div>

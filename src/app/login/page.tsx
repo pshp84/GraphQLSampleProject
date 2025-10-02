@@ -16,7 +16,7 @@ type LoginUserData = {
   };
 };
 
-type LoginUserVars = {
+type LoginUser = {
   email: string;
   password: string;
 };
@@ -26,7 +26,7 @@ export default function LoginPage() {
   const [required, setRequired] = useState(false);
   const [loginUser, { loading, error }] = useMutation<
     LoginUserData,
-    LoginUserVars
+    LoginUser
   >(LOGIN_USER);
   const { login } = useAuth();
   const router = useRouter();

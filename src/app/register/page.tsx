@@ -14,7 +14,7 @@ type RegisterUserData = {
   };
 };
 
-type RegisterUserVars = {
+type RegisterUser = {
   input: { name: string; email: string; password: string };
 };
 
@@ -28,7 +28,7 @@ export default function RegisterPage() {
   const [required, setRequired] = useState(false);
   const [registerUser, { loading, error }] = useMutation<
     RegisterUserData,
-    RegisterUserVars
+    RegisterUser
   >(REGISTER_USER);
 
   const { login } = useAuth();
